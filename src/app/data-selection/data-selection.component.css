@@ -1,0 +1,14 @@
+.form-container {
+    box-shadow: 2px 2px 2px lightgrey;
+    font-size: 12px;
+}
+
+.selection-panel-header {
+    font-size: 12px;
+}
+
+.form-control-sm {
+    height: 15px;
+    font-size: 12px;
+    padding: 0;
+}

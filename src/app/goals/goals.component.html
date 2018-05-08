@@ -1,0 +1,12 @@
+<div class="card" id="goals-panel">
+    <div class="card-header">
+        <strong>Sustainable Development Goals</strong>
+    </div>
+    <div class="list-group" id="goals-container">
+        <a  *ngFor="let goal of goals; let i=index"
+            href="#" class="goal list-group-item list-group-item-action"
+        >{{ (i + 1) + ". " +goal.title }}
+        </a>
+    </div>
+</div>
+

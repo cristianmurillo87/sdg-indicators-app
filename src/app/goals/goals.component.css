@@ -1,0 +1,25 @@
+#goals-panel {
+    box-shadow: 2px 2px 2px lightgrey;
+    font-size: 12px;
+    max-height: 620px;
+}
+
+#goals-container {
+    overflow-y: scroll;
+}
+
+.goal {
+    border-radius : unset;
+    font-size : 12px;
+    transition-property: border-left-width;
+    transition-duration: 100ms;
+}
+
+.goal:hover {
+    border-left: 4px solid #53c653;
+}
+
+.goal:focus{
+    border-left: 4px solid #267326;
+    background-color: #f2f2f2;
+}

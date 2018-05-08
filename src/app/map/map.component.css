@@ -1,0 +1,13 @@
+.map-panel-header {
+    font-size: 12px;
+}
+
+.map-container {
+    box-shadow: 2px 2px 2px lightgrey;
+    font-size: 12px;
+}
+
+#map {
+    width: 100%;
+    min-height: 350px;
+}
