@@ -1,16 +1,18 @@
 <app-header></app-header>
 <div class="container-fluid offset-top">
     <div class="row">
-        <div class="col col-md-3 col-sm-12 col-xs-12 pr-1 container-panel">
+        <div class="col-md-3 col-sm-12 col-xs-12 offset-top container-panel">
             <app-goals></app-goals>
         </div>
-        <div class="col col-md-9 col-sm-12 col-xs-12 pl-1 container-panel">
-            <app-data-selection></app-data-selection>
-            <div class="row offset-top">
-                <div class="col col-md-7 col-sm-12 pr-1">
+        <div class="col-md-9 col-sm-12 col-xs-12 container-panel">
+            <div class="offset-top">
+                <app-data-selection></app-data-selection>
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-sm-12 offset-top">
                     <app-map></app-map>
                 </div>
-                <div class="col col-md-5 col-sm-12 pl-1">
+                <div class="col-md-5 col-sm-12 offset-top">
                     <app-plot></app-plot>
                 </div>
             </div>
