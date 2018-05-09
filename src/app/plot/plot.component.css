@@ -2,8 +2,14 @@
     font-size: 12px;
 }
 
+.panel-header {
+    background-color: #f7fcfd;
+    border-bottom: 1px solid #ccece6;
+    font-size: 12px;
+}
+
 .plot-container {
-    box-shadow: 2px 2px 2px lightgrey;
+    /*box-shadow: 2px 2px 2px lightgrey;*/
     font-size: 12px;
 }
 
