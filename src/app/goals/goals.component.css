@@ -1,12 +1,14 @@
 #goals-panel {
     /*box-shadow: 2px 2px 2px lightgrey;*/
     font-size: 12px;
-    max-height: 615px;
+    /*height: 600px;*/
     border: 0;
+    padding: 0;
+    margin: 0;
 }
 
 #goals-container {
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 .panel-header {

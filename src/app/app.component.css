@@ -1,8 +1,15 @@
+#wrapper {
+    padding-left: 0;
+    padding-right: 0;
+}
 .offset-top {
     margin-top: 5px;
 }
 .container-panel {
-    max-height: 80%;
+    padding: 4px;
+    margin-bottom: 2px;
+    overflow-y: scroll;
+    height: 90vh;
 }
 
 .footer {
