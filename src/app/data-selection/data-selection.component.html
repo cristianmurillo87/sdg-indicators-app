@@ -7,48 +7,56 @@
         <form>
             <div class="form-row">
                 <div class=" form-group col-md-7 col-sm-12">
-                    <select id="indicator-select" class="form-control form-control-sm" required>
+                    <select id="indicator-select"
+                            class="form-control form-control-sm" required
+                            (change)="onIndicatorSelected(indicatorSelect)" #indicatorSelect>
                         <option value="" disabled selected hidden>Choose an indicator </option>
-                        <option *ngFor="let indicator of validIndicators"
-                                value="{{ indicator.indicator }}">{{ indicator.indicator + " " + indicator. description }}</option>
+                        <option
+                                *ngFor="let indicator of validIndicators"
+                                value="{{ indicator.indicator }}">
+                            {{ indicator.indicator + " " + indicator. description }}
+                        </option>
                     </select>
                 </div>
                 <div class="form-group col-md-5 col-sm-12">
-                    <select id="series-select" class="form-control form-control-sm">
+                    <select id="series-select"
+                            (change)="onSeriesSelected(seriesSelect)"
+                            class="form-control form-control-sm" required #seriesSelect>
                         <option value="" disabled selected hidden>Choose a time series</option>
-                        <option>Indicator 1</option>
-                        <option>Indicator 1</option>
-                        <option>Indicator 1</option>
-                        <option>Indicator 1</option>
+                        <option *ngFor="let series of validSeries"
+                                value="{{ series.series }}">
+                            {{ series.description }}
+                        </option>
                     </select>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <select class="form-control form-control-sm">
-                        <option disabled selected hidden>Choose a year</option>
-                        <option>Indicator 1</option>
-                        <option>Indicator 1</option>
-                        <option>Indicator 1</option>
-                        <option>Indicator 1</option>
+                    <select id="year-select"
+                            (change)="onYearSelected(seriesSelect, yearSelect)"
+                            class="form-control form-control-sm" required #yearSelect>
+                        <option value="" disabled selected hidden>Choose a year</option>
+                        <option *ngFor="let year of availableYears"
+                                value="{{ year }}"> {{ year }}
+                        </option>
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <select class="form-control form-control-sm">
-                        <option disabled selected hidden>Choose an age group</option>
-                        <option>Indicator 1</option>
-                        <option>Indicator 1</option>
-                        <option>Indicator 1</option>
-                        <option>Indicator 1</option>
+                    <select
+                            (change)="onAgeGroupSelected(seriesSelect, yearSelect, ageGroupSelect)"
+                            class="form-control form-control-sm" #ageGroupSelect>
+                        <option value="" disabled selected hidden>Choose an age group</option>
+                        <option *ngFor="let ageGroup of ageGroups"
+                                value="{{ ageGroup.id }}"> {{ ageGroup.age_group }}
+                        </option>
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <select class="form-control form-control-sm">
-                        <option disabled selected hidden>Choose a gender</option>
-                        <option>Indicator 1</option>
-                        <option>Indicator 1</option>
-                        <option>Indicator 1</option>
-                        <option>Indicator 1</option>
+                    <select class="form-control form-control-sm" #genderSelect>
+                        <option value="" disabled selected hidden>Choose a gender</option>
+                        <option *ngFor="let gender of genders"
+                                value="{{ gender.id }}">{{ gender.gender }}
+                        </option>
                     </select>
                 </div>
             </div>

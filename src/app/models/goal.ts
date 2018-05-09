@@ -9,3 +9,10 @@ export class Indicator {
     indicator : string;
     description : string;
 }
+
+export class Series {
+    indicator : string;
+    series : string;
+    description : string;
+    unit? : string;
+}
