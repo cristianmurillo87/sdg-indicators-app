@@ -2,10 +2,14 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-3 container-panel">
-            <app-goals></app-goals>
+            <app-goals (onGoalSelected)="goalSelected($event)" ></app-goals>
         </div>
         <div class="col-md-9 container-panel">
-            <app-data-selection></app-data-selection>
+            <app-data-selection
+                    [title]="formWindowTitle"
+                    [sdg]="sdg"
+                    [indicators]="validIndicators"
+            ></app-data-selection>
             <app-map></app-map>
             <app-plot></app-plot>
         </div>

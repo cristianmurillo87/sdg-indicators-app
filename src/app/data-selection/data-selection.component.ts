@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import {Indicator} from "../models/goal";
 
 @Component({
   selector: 'app-data-selection',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DataSelectionComponent implements OnInit {
 
+    @Input('title') windowTitle: string;
+    @Input('sdg') sdgId: string;
+    @Input('indicators') validIndicators : Indicator[];
+
   constructor() { }
 
   ngOnInit() {
   }
+
 
 }

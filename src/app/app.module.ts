@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule} from "@angular/common/http";
 
 
 import { AppComponent } from './app.component';
@@ -8,6 +9,8 @@ import { GoalsComponent } from './goals/goals.component';
 import { MapComponent } from './map/map.component';
 import { DataSelectionComponent } from './data-selection/data-selection.component';
 import { PlotComponent } from './plot/plot.component';
+
+import { IndicatorsService } from "./services/indicators.service";
 
 
 @NgModule({
@@ -20,9 +23,10 @@ import { PlotComponent } from './plot/plot.component';
     PlotComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+      HttpClientModule
   ],
-  providers: [],
+  providers: [IndicatorsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

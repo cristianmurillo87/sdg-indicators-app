@@ -1,10 +1,12 @@
 <div class="card" id="goals-panel">
     <div class="card-header navbar-light panel-header" style="">
-        GOALS
+        <i class="fa fa-list-ul" aria-hidden="true"></i>
+        &nbsp;Goals
     </div>
     <div class="list-group" id="goals-container">
         <a  *ngFor="let goal of goals; let i=index"
             href="#" class="goal list-group-item list-group-item-action"
+            (click)="onClick(goal)"
         >{{ (i + 1) + ". " +goal.title }}
         </a>
     </div>
