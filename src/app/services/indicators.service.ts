@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 @Injectable()
 export class IndicatorsService{
@@ -30,5 +30,20 @@ export class IndicatorsService{
 
   getGenders(series, year, age) {
       return this._http.get(`${this.serverUrl}/series/${series}/${year}/${age}/genders`);
+  }
+
+  getFeatures(series, year, age?, gender?) {
+
+      let urlParams = new HttpParams();
+
+      if(age) {
+          urlParams.append('age_group', age);
+      }
+
+      if(gender) {
+          urlParams.append('gender', gender);
+      }
+
+      return this._http.get(`${this.serverUrl}/mapdata/${series}/${year}`, { params : urlParams});
   }
 }

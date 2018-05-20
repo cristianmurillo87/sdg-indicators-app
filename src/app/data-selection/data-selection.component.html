@@ -4,13 +4,17 @@
         &nbsp;{{ windowTitle }}
     </div>
     <div class="card-body">
-        <form>
+        <form (ngSubmit)="onSubmit()" #dataForm="ngForm">
             <div class="form-row">
                 <div class=" form-group col-md-7 col-sm-12">
                     <select id="indicator-select"
-                            class="form-control form-control-sm" required
-                            (change)="onIndicatorSelected(indicatorSelect)" #indicatorSelect>
-                        <option value="" disabled selected hidden>Choose an indicator </option>
+                            name="indicator"
+                            class="form-control form-control-sm"
+                            required
+                            (change)="onIndicatorSelected()"
+                            #indicatorSelect
+                            [(ngModel)]="defaultIndicator">
+                        <option value="-1" disabled>Choose an indicator </option>
                         <option
                                 *ngFor="let indicator of validIndicators"
                                 value="{{ indicator.indicator }}">
@@ -20,9 +24,13 @@
                 </div>
                 <div class="form-group col-md-5 col-sm-12">
                     <select id="series-select"
-                            (change)="onSeriesSelected(seriesSelect)"
-                            class="form-control form-control-sm" required #seriesSelect>
-                        <option value="" disabled selected hidden>Choose a time series</option>
+                            name="series"
+                            (change)="onSeriesSelected()"
+                            class="form-control form-control-sm"
+                            required
+                            #seriesSelect
+                            [(ngModel)]="defaultSeries">
+                        <option value="-1" disabled >Choose a time series</option>
                         <option *ngFor="let series of validSeries"
                                 value="{{ series.series }}">
                             {{ series.description }}
@@ -31,43 +39,51 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <select id="year-select"
-                            (change)="onYearSelected(seriesSelect, yearSelect)"
-                            class="form-control form-control-sm" required #yearSelect>
-                        <option value="" disabled selected hidden>Choose a year</option>
+                            name="year"
+                            (change)="onYearSelected()"
+                            class="form-control form-control-sm"
+                            required
+                            #yearSelect
+                            [(ngModel)]="defaultYear">
+                        <option value="-1" disabled  selected>Choose a year</option>
                         <option *ngFor="let year of availableYears"
                                 value="{{ year }}"> {{ year }}
                         </option>
                     </select>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <select
-                            (change)="onAgeGroupSelected(seriesSelect, yearSelect, ageGroupSelect)"
-                            class="form-control form-control-sm" #ageGroupSelect>
-                        <option value="" disabled selected hidden>Choose an age group</option>
+                            name="age"
+                            (change)="onAgeGroupSelected()"
+                            class="form-control form-control-sm"
+                            #ageGroupSelect
+                            [(ngModel)]="defaultAgeGroup">
+                        <option value="-1" disabled selected>Choose an age group</option>
                         <option *ngFor="let ageGroup of ageGroups"
                                 value="{{ ageGroup.id }}"> {{ ageGroup.age_group }}
                         </option>
                     </select>
                 </div>
-                <div class="form-group col-md-4">
-                    <select class="form-control form-control-sm" #genderSelect>
-                        <option value="" disabled selected hidden>Choose a gender</option>
+                <div class="form-group col-md-3">
+                    <select class="form-control form-control-sm"
+                            name="gender"
+                            #genderSelect
+                            [(ngModel)]="defaultGender">
+                        <option value="-1" disabled selected>Choose a gender</option>
                         <option *ngFor="let gender of genders"
                                 value="{{ gender.id }}">{{ gender.gender }}
                         </option>
                     </select>
                 </div>
+                <div class="form-group col-md-3">
+                    <input type="submit"
+                           class="btn btn-sm btn-success submit-button"
+                           value="Update >>"
+                           [disabled]="!dataForm.valid" >
+                </div>
             </div>
         </form>
-        <!--div style="padding-bottom: 0;">
-            <strong>Indicator Description</strong>
-            <p style="margin-bottom: 0;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam architecto consequuntur itaque, laudantium quia repellendus sunt tempore veritatis voluptates. Distinctio eligendi explicabo iusto molestiae officia quaerat reiciendis soluta voluptates voluptatibus! </p>
-        </div>
-        <div>
-            <strong>Series Description</strong>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam architecto consequuntur itaque, laudantium quia repellendus sunt tempore veritatis voluptates. Distinctio eligendi explicabo iusto molestiae officia quaerat reiciendis soluta voluptates voluptatibus! </p>
-        </div-->
     </div>
 </div>

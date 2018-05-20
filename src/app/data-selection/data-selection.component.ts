@@ -1,4 +1,5 @@
-import {Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, Input, ViewChild, Output, EventEmitter} from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { IndicatorsService } from "../services/indicators.service";
 
@@ -11,102 +12,132 @@ import {Indicator, Series} from "../models/goal";
 })
 export class DataSelectionComponent implements OnInit {
 
+    defaultIndicator = "-1";
+    defaultSeries = "-1";
+    defaultYear = "-1";
+    defaultAgeGroup = "-1";
+    defaultGender = "-1";
+
+
     @Input('title') windowTitle: string;
     @Input('sdg') sdgId: string;
     @Input('indicators') validIndicators : Indicator[];
     validSeries : Series[];
     availableYears : number[];
-    ageGroups : {id:number, age_group:string} [];
-    genders : {id:string, gender: string} [];
+    ageGroups = [];
+    genders = [];
 
-    @ViewChild('seriesSelect') selectSeries : ElementRef;
-    @ViewChild('yearSelect') selectYear : ElementRef;
-    @ViewChild('ageGroupSelect') selectAgeGroup : ElementRef;
-    @ViewChild('genderSelect') selectGender : ElementRef;
+    @ViewChild('dataForm') form : NgForm;
+
+    @Output() onFormSubmitted = new EventEmitter<any>();
 
   constructor(private  _indicatorService:IndicatorsService) { }
 
   ngOnInit() {
   }
 
-  onIndicatorSelected(indicatorValue: HTMLSelectElement) {
+  onIndicatorSelected() {
 
-      this._indicatorService.getSeriesByIndicator(indicatorValue.value)
+      this._indicatorService.getSeriesByIndicator(this.defaultIndicator)
           .subscribe(
               (data) => {
 
                   this.validSeries = data['data'].series;
-
-                  this.selectYear.nativeElement.value = '';
-                  this.selectAgeGroup.nativeElement.value = '';
-                  this.selectGender.nativeElement.value = '';
-              },
-              (err) => {
-                  console.error(err);
               },
               () => {
+                  this.validSeries = [];
+                  this.availableYears = [];
+                  this.ageGroups = [];
+                  this.genders = [];
+              },
+              () => {
+
+                  this.defaultSeries = "-1";
+                  this.defaultYear = "-1";
+                  this.defaultAgeGroup = "-1";
+                  this.defaultGender = "-1";
                   console.log("Series loaded");
               }
 
           );
+
+
   }
 
-  onSeriesSelected(series: HTMLSelectElement) {
+  onSeriesSelected() {
 
-      this._indicatorService.getYearsForSeries(series.value)
+      this._indicatorService.getYearsForSeries(this.defaultSeries)
           .subscribe(
               (data) => {
                   this.availableYears = data['data'].years;
 
-                  this.selectYear.nativeElement.value = '';
-                  this.selectAgeGroup.nativeElement.value = '';
-                  this.selectGender.nativeElement.value = '';
-
-              },
-              (err) => {
-                  console.error(err);
               },
               () => {
+                  this.availableYears = [];
+                  this.ageGroups = [];
+                  this.genders = [];
+              },
+              () => {
+
+                  this.defaultYear = "-1";
+                  this.defaultAgeGroup = "-1";
+                  this.defaultGender = "-1";
                   console.log("Years loaded");
+
               }
 
           );
+
+
   }
 
-  onYearSelected(series: HTMLSelectElement, year: HTMLSelectElement) {
+  onYearSelected() {
 
-      this._indicatorService.getAgeGroups(series.value, year.value)
+      this._indicatorService.getAgeGroups(this.defaultSeries, this.defaultYear)
           .subscribe(
               (data) => {
                   this.ageGroups = data['data'].age_groups;
-
-                  this.selectGender.nativeElement.value = '';
-              },
-              (err) => {
-                  console.error(err);
               },
               () => {
+                  this.ageGroups = [];
+                  this.genders = [];
+              },
+              () => {
+
+                  this.defaultAgeGroup = "-1";
+                  this.defaultGender = "-1";
                   console.log("Age groups loaded");
               }
 
           );
   }
 
-  onAgeGroupSelected(series: HTMLSelectElement, year: HTMLSelectElement, age: HTMLSelectElement) {
+  onAgeGroupSelected() {
 
-      this._indicatorService.getGenders(series.value, year.value, age.value)
+      this._indicatorService.getGenders(this.defaultSeries, this.defaultYear, this.defaultAgeGroup)
           .subscribe(
               (data) => {
                   this.genders = data['data'].genders;
               },
-              (err) => {
-                  console.error(err);
+              () => {
+                  this.genders = [];
               },
               () => {
+
+                  this.defaultGender = "-1";
                   console.log("Genders loaded");
               }
 
           );
+  }
+
+  onSubmit() {
+      console.log(this.form);
+      this.onFormSubmitted.emit({
+          title: this.windowTitle,
+          sdgId: this.sdgId,
+          params: this.form.value
+      });
   }
 
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 
 import {IndicatorsService} from "./services/indicators.service";
+import { MapService } from "./services/map.service";
 
 import { Indicator } from "./models/goal";
 
@@ -17,7 +18,7 @@ export class AppComponent {
 
   validIndicators : Indicator[];
 
-  constructor(private _indicatorService: IndicatorsService) {}
+  constructor(private _indicatorService: IndicatorsService, private _mapService: MapService) {}
 
   goalSelected(e) {
       this.formWindowTitle = 'Indicators and Series for SDG: ' + e.title;
@@ -27,6 +28,7 @@ export class AppComponent {
           .subscribe(
               (data) => {
                   this.validIndicators = data['data'].indicators;
+
               },
               (err) => {
                   console.error(err);
@@ -36,5 +38,17 @@ export class AppComponent {
               }
 
           );
+
+  }
+
+  formSubmitted(e) {
+      console.log(e);
+      let seriesCode = e.params.series;
+      let year = e.params.year;
+      let ageGroup = e.params.age;
+      let gender = e.params.gender;
+
+      this._mapService.getFeatures(seriesCode, year, ageGroup, gender);
+
   }
 }

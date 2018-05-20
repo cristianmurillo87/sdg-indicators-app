@@ -12,9 +12,16 @@
     /*box-shadow: 2px 2px 2px lightgrey;*/
     font-size: 12px;
     margin: 10px 0;
+    padding: 0;
 }
 
 #map {
     width: 100%;
     min-height: 390px;
+    padding: 0;
+    margin: 0;
+}
+
+.card-body {
+    padding: 0;
 }

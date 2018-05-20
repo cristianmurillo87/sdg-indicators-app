@@ -12,3 +12,8 @@
     font-size: 12px;
     padding: 0;
 }
+
+.submit-button {
+    font-size: 15px;
+    padding: 3px 15px;
+}

@@ -9,6 +9,7 @@
                     [title]="formWindowTitle"
                     [sdg]="sdg"
                     [indicators]="validIndicators"
+                    (onFormSubmitted)="formSubmitted($event)"
             ></app-data-selection>
             <app-map></app-map>
             <app-plot></app-plot>
