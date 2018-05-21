@@ -51,12 +51,10 @@ export class DataSelectionComponent implements OnInit {
                   this.genders = [];
               },
               () => {
-
                   this.defaultSeries = "-1";
                   this.defaultYear = "-1";
                   this.defaultAgeGroup = "-1";
                   this.defaultGender = "-1";
-                  console.log("Series loaded");
               }
 
           );
@@ -78,12 +76,9 @@ export class DataSelectionComponent implements OnInit {
                   this.genders = [];
               },
               () => {
-
                   this.defaultYear = "-1";
                   this.defaultAgeGroup = "-1";
                   this.defaultGender = "-1";
-                  console.log("Years loaded");
-
               }
 
           );
@@ -103,10 +98,8 @@ export class DataSelectionComponent implements OnInit {
                   this.genders = [];
               },
               () => {
-
                   this.defaultAgeGroup = "-1";
                   this.defaultGender = "-1";
-                  console.log("Age groups loaded");
               }
 
           );
@@ -123,16 +116,13 @@ export class DataSelectionComponent implements OnInit {
                   this.genders = [];
               },
               () => {
-
                   this.defaultGender = "-1";
-                  console.log("Genders loaded");
               }
 
           );
   }
 
   onSubmit() {
-      console.log(this.form);
       this.onFormSubmitted.emit({
           title: this.windowTitle,
           sdgId: this.sdgId,

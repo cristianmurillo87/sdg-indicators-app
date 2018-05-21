@@ -27,17 +27,12 @@ export class GoalsComponent implements OnInit {
               },
               (err) => {
                   console.error(err);
-              },
-              () => {
-                  console.log("Goals loaded");
               }
-
           );
   }
 
   onClick(goal: Goal) {
       this.onGoalSelected.emit(goal);
-      console.log("Emitted!")
   }
 
 }

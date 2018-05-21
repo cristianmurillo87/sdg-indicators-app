@@ -32,18 +32,12 @@ export class IndicatorsService{
       return this._http.get(`${this.serverUrl}/series/${series}/${year}/${age}/genders`);
   }
 
-  getFeatures(series, year, age?, gender?) {
+  getFeatures(series, year, age, gender) {
 
-      let urlParams = new HttpParams();
+      const urlParams = new HttpParams()
+            .set('age_group', age)
+            .set('gender', gender);
 
-      if(age) {
-          urlParams.append('age_group', age);
-      }
-
-      if(gender) {
-          urlParams.append('gender', gender);
-      }
-
-      return this._http.get(`${this.serverUrl}/mapdata/${series}/${year}`, { params : urlParams});
+      return this._http.get(`${this.serverUrl}/mapdata/${series}/${year}`, { params : urlParams });
   }
 }

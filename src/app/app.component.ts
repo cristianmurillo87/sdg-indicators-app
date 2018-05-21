@@ -32,23 +32,16 @@ export class AppComponent {
               },
               (err) => {
                   console.error(err);
-              },
-              () => {
-                  console.log("Goals loaded");
               }
-
           );
 
   }
 
   formSubmitted(e) {
-      console.log(e);
       let seriesCode = e.params.series;
       let year = e.params.year;
-      let ageGroup = e.params.age;
-      let gender = e.params.gender;
-
+      let ageGroup = (e.params.age == "-1") ? '45' : e.params.age;
+      let gender = (e.params.gender == "-1") ? 'B' : e.params.gender;
       this._mapService.getFeatures(seriesCode, year, ageGroup, gender);
-
   }
 }
