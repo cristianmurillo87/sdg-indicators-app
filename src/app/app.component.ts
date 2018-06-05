@@ -15,6 +15,7 @@ export class AppComponent {
 
   formWindowTitle = 'Indicators and Series';
   sdg: string;
+  statistics = [];
 
   validIndicators : Indicator[];
 
@@ -43,5 +44,15 @@ export class AppComponent {
       let ageGroup = (e.params.age == "-1") ? '45' : e.params.age;
       let gender = (e.params.gender == "-1") ? 'B' : e.params.gender;
       this._mapService.getFeatures(seriesCode, year, ageGroup, gender);
+      this._indicatorService.series(seriesCode);
+      this._indicatorService.age(ageGroup);
+      this._indicatorService.gender(gender);
   }
+
+  onCountrySelected(event) {
+      this._indicatorService.countryCode(event.country_code);
+      this._indicatorService.countryName(event.name);
+      this._indicatorService.getStatisticData();
+  }
+
 }

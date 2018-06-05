@@ -13,6 +13,7 @@ import Fill from 'ol/style/fill';
 import Select from 'ol/interaction/select'
 
 import { IndicatorsService } from "./indicators.service";
+import {Subject} from "rxjs/Subject";
 
 
 @Injectable()
@@ -20,6 +21,9 @@ export class MapService {
 
     map: Map;
     features: any;
+
+    countryCode = new Subject<any>();
+    countryCode$ = this.countryCode.asObservable();
 
     vectorSource = new VectorSource({
         format: new GeoJSON()
@@ -30,7 +34,7 @@ export class MapService {
     });
 
     selectInteraction = new Select();
-    countryCode: string;
+
 
     constructor(private _indicatorService: IndicatorsService) {
     }
@@ -51,10 +55,7 @@ export class MapService {
                 center: [0, 0],
                 zoom: 2,
                 minZoom: 2
-            }),
-            interactions: [
-                this.selectInteraction
-            ]
+            })
         });
 
     }
@@ -142,7 +143,8 @@ export class MapService {
 
                     this.countriesLayer.setStyle(styleFunction);
 
-                    this.map.removeInteraction(this.selectInteraction);
+
+                    this.removeSelectInteraction();
 
                     this.selectInteraction = new Select({
                         style: new Style({
@@ -160,19 +162,35 @@ export class MapService {
 
                     this.vectorSource.refresh();
 
+                    let countryCode = this.countryCode;
+
                     this.selectInteraction.on('select', function (event) {
                         let feature = event.selected[0];
-                        const self = this;
-                        self.countryCode = feature.get('country_code');
+
+                        if(feature !== undefined) {
+                            const code = feature.get('country_code');
+                            const name = feature.get('country');
+                            countryCode.next({"name" : name, "country_code" : code});
+                        }
+
                     });
 
                 },
                 () => {
                     this.features = [];
                     this.countriesLayer.getSource().clear();
+                    this.countriesLayer.getSource().refresh();
                 }
             );
 
+    }
+
+    removeSelectInteraction(): Select {
+        this.map.getInteractions().forEach((interaction) => {
+            if(interaction instanceof Select) {
+                this.map.removeInteraction(interaction);
+            }
+        });
     }
 
 }

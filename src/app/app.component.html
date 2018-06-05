@@ -11,7 +11,7 @@
                     [indicators]="validIndicators"
                     (onFormSubmitted)="formSubmitted($event)"
             ></app-data-selection>
-            <app-map></app-map>
+            <app-map (countrySelected)="onCountrySelected($event)"></app-map>
             <app-plot></app-plot>
         </div>
     </div>

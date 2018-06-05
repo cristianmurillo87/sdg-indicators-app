@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MapService } from '../services/map.service';
+import { IndicatorsService } from '../services/indicators.service';
 
 @Component({
   selector: 'app-map',
@@ -8,7 +9,14 @@ import { MapService } from '../services/map.service';
 })
 export class MapComponent implements OnInit {
 
-  constructor(private _mapService: MapService) { }
+    @Output() countrySelected = new EventEmitter<{name : string, country_code : string}>();
+
+  constructor(private _mapService: MapService) {
+      this._mapService.countryCode$
+          .subscribe((country) => {
+              this.countrySelected.emit(country);
+          });
+  }
 
   ngOnInit() {
         this._mapService.createMap();
