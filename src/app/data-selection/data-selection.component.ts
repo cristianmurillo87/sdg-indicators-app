@@ -1,9 +1,9 @@
-import {Component, OnInit, Input, ViewChild, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, ViewChild, Output, EventEmitter} from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { IndicatorsService } from "../services/indicators.service";
 
-import {Indicator, Series} from "../models/goal";
+import {Goal, Indicator, Series} from "../models/goal";
 
 @Component({
   selector: 'app-data-selection',
@@ -12,6 +12,7 @@ import {Indicator, Series} from "../models/goal";
 })
 export class DataSelectionComponent implements OnInit {
 
+    defaultGoal = "-1";
     defaultIndicator = "-1";
     defaultSeries = "-1";
     defaultYear = "-1";
@@ -19,9 +20,9 @@ export class DataSelectionComponent implements OnInit {
     defaultGender = "-1";
 
 
-    @Input('title') windowTitle: string;
-    @Input('sdg') sdgId: string;
-    @Input('indicators') validIndicators : Indicator[];
+    windowTitle = '';
+    goals : Goal[];
+    validIndicators : Indicator[];
     validSeries : Series[];
     availableYears : number[];
     ageGroups = [];
@@ -34,6 +35,35 @@ export class DataSelectionComponent implements OnInit {
   constructor(private  _indicatorService:IndicatorsService) { }
 
   ngOnInit() {
+      this._indicatorService.getGoals()
+          .subscribe(
+              (data) => {
+                  this.goals = data['data']; //retrieve the goals when the component is being initialized
+              },
+              () => {
+
+              }
+          )
+  }
+  
+  onGoalSelected() {
+      this.windowTitle = this.defaultGoal;
+      this._indicatorService.getIndicatorsByGoal(this.defaultGoal)
+          .subscribe(
+              (data) => {
+                  this.validIndicators = data['data'].indicators;
+              },
+              () => {
+
+              },
+              () => {
+                  this.defaultIndicator = "-1";
+                  this.defaultSeries = "-1";
+                  this.defaultYear = "-1";
+                  this.defaultAgeGroup = "-1";
+                  this.defaultGender = "-1";
+              }
+          )
   }
 
   onIndicatorSelected() {
@@ -41,14 +71,10 @@ export class DataSelectionComponent implements OnInit {
       this._indicatorService.getSeriesByIndicator(this.defaultIndicator)
           .subscribe(
               (data) => {
-
                   this.validSeries = data['data'].series;
               },
               () => {
-                  this.validSeries = [];
-                  this.availableYears = [];
-                  this.ageGroups = [];
-                  this.genders = [];
+
               },
               () => {
                   this.defaultSeries = "-1";
@@ -68,12 +94,9 @@ export class DataSelectionComponent implements OnInit {
           .subscribe(
               (data) => {
                   this.availableYears = data['data'].years;
-
               },
               () => {
-                  this.availableYears = [];
-                  this.ageGroups = [];
-                  this.genders = [];
+
               },
               () => {
                   this.defaultYear = "-1";
@@ -94,8 +117,7 @@ export class DataSelectionComponent implements OnInit {
                   this.ageGroups = data['data'].age_groups;
               },
               () => {
-                  this.ageGroups = [];
-                  this.genders = [];
+
               },
               () => {
                   this.defaultAgeGroup = "-1";
@@ -125,7 +147,6 @@ export class DataSelectionComponent implements OnInit {
   onSubmit() {
       this.onFormSubmitted.emit({
           title: this.windowTitle,
-          sdgId: this.sdgId,
           params: this.form.value
       });
   }

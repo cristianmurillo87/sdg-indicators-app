@@ -1,12 +1,24 @@
 <div class="card form-container">
-    <div class="card-header selection-panel-header">
-        <i class="fa fa-list-alt" aria-hidden="true"></i>
-        &nbsp;{{ windowTitle }}
-    </div>
     <div class="card-body">
         <form (ngSubmit)="onSubmit()" #dataForm="ngForm">
             <div class="form-row">
-                <div class=" form-group col-md-7 col-sm-12">
+                <div class=" form-group col-md-3 col-sm-12">
+                    <select id="goal-select"
+                            name="goal"
+                            class="form-control form-control-sm"
+                            required
+                            (change)="onGoalSelected()"
+                            #goalSelect
+                            [(ngModel)]="defaultGoal">
+                        <option value="-1" disabled>Choose an indicator </option>
+                        <option
+                                *ngFor="let goal of goals; let i=index"
+                                value="{{ goal.id }}">
+                            {{ (i + 1) + ". " + goal.title }}
+                        </option>
+                    </select>
+                </div>
+                <div class=" form-group col-md-4 col-sm-12">
                     <select id="indicator-select"
                             name="indicator"
                             class="form-control form-control-sm"
@@ -39,7 +51,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <select id="year-select"
                             name="year"
                             (change)="onYearSelected()"
@@ -53,7 +65,7 @@
                         </option>
                     </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <select
                             name="age"
                             (change)="onAgeGroupSelected()"
@@ -77,10 +89,10 @@
                         </option>
                     </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-1">
                     <input type="submit"
                            class="btn btn-sm btn-success submit-button"
-                           value="Update >>"
+                           value="update >"
                            [disabled]="!dataForm.valid" >
                 </div>
             </div>

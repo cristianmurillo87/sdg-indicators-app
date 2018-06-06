@@ -1,46 +1,24 @@
 <app-header></app-header>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3 container-panel">
-            <app-goals (onGoalSelected)="goalSelected($event)" ></app-goals>
+        <div class="col-md-12">
+            <app-data-selection (onFormSubmitted)="formSubmitted($event)"></app-data-selection>
         </div>
-        <div class="col-md-9 container-panel">
-            <app-data-selection
-                    [title]="formWindowTitle"
-                    [sdg]="sdg"
-                    [indicators]="validIndicators"
-                    (onFormSubmitted)="formSubmitted($event)"
-            ></app-data-selection>
+        <div class="col-md-7 col-sm-12">
             <app-map (countrySelected)="onCountrySelected($event)"></app-map>
+        </div>
+        <div class="col-md-5 col-sm-12">
             <app-plot></app-plot>
         </div>
     </div>
 </div>
-
-
-<!--app-header></app-header>
-<div class="container-fluid offset-top">
-    <div class="row container-fl">
-        <div class="col-md-3 col-sm-12 col-xs-12 offset-top container-panel">
-            <app-goals></app-goals>
-        </div>
-        <div class="col-md-9 col-sm-12 col-xs-12 container-panel">
-            <div class="offset-top">
-                <app-data-selection></app-data-selection>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-sm-12 offset-top">
-                    <app-map></app-map>
-                </div>
-                <div class="col-md-6 col-sm-12 offset-top">
-                    <app-plot></app-plot>
-                </div>
-            </div>
-        </div>
+<footer class="bg-dark footer">
+    <div class="container">
+        <span class="text-muted">
+            Hochshule f&uuml;r Technik Stuttgart.
+            Project: Visualization of Sustainable Development Goals Indicators - GIS Studio. 2018.
+        </span>
     </div>
+</footer>
 
-</div>
-<footer class="footer bg-dark offset-top">
-    <p style="padding-top: 10px;">My footer text</p>
-</footer-->
 

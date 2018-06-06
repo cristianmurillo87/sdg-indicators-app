@@ -4,3 +4,18 @@ body {
     max-font-size: 12px;
 }
 
+.panel-header {
+    background-color: #f7fcfd;
+    border-bottom: 1px solid #ccece6;
+    font-size: 12px;
+}
+
+.element-container {
+    font-size: 12px;
+    margin: 10px 0;
+    padding: 0;
+}
+
+.card-body {
+    padding: 0;
+}

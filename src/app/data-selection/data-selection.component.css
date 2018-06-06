@@ -1,15 +1,14 @@
 .form-container {
     font-size: 12px;
-}
-
-.selection-panel-header {
-    font-size: 12px;
+    margin-top: 10px;
+    padding: 10px;
 }
 
 .form-control-sm {
     height: 15px;
     font-size: 12px;
     padding: 0;
+
 }
 
 .submit-button {

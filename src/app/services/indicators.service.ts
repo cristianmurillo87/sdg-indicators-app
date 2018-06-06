@@ -38,11 +38,6 @@ export class IndicatorsService{
         this._countryCode = value;
     }
 
-    getStatistics() {
-        return this._statistics;
-    }
-
-
 
     getGoals() {
       return this._http.get(`${this._serverUrl}/goals`);
