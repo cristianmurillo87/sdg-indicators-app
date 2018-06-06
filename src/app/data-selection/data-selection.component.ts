@@ -54,7 +54,11 @@ export class DataSelectionComponent implements OnInit {
                   this.validIndicators = data['data'].indicators;
               },
               () => {
-
+                  this.validIndicators = [];
+                  this.validSeries = [];
+                  this.availableYears = [];
+                  this.ageGroups = [];
+                  this.genders = [];
               },
               () => {
                   this.defaultIndicator = "-1";
@@ -74,7 +78,10 @@ export class DataSelectionComponent implements OnInit {
                   this.validSeries = data['data'].series;
               },
               () => {
-
+                  this.validSeries = [];
+                  this.availableYears = [];
+                  this.ageGroups = [];
+                  this.genders = [];
               },
               () => {
                   this.defaultSeries = "-1";
@@ -96,7 +103,9 @@ export class DataSelectionComponent implements OnInit {
                   this.availableYears = data['data'].years;
               },
               () => {
-
+                  this.availableYears = [];
+                  this.ageGroups = [];
+                  this.genders = [];
               },
               () => {
                   this.defaultYear = "-1";
@@ -117,7 +126,8 @@ export class DataSelectionComponent implements OnInit {
                   this.ageGroups = data['data'].age_groups;
               },
               () => {
-
+                  this.ageGroups = [];
+                  this.genders = [];
               },
               () => {
                   this.defaultAgeGroup = "-1";

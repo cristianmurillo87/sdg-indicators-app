@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import { HttpClient, HttpParams } from "@angular/common/http";
 import {Subject} from "rxjs/Subject";
 
@@ -12,7 +12,6 @@ export class IndicatorsService{
     _countryName : string;
     _countryCode  : string;
     _statistics = new Subject();
-
     statistics$ = this._statistics.asObservable();
 
 
@@ -86,4 +85,10 @@ export class IndicatorsService{
             });
 
     }
+
+    getCountries() {
+        return this._http.get(`${this._serverUrl}/countries`);
+    }
+
+
 }

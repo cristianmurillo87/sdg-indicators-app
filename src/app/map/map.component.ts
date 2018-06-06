@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, AfterViewInit} from '@angular/core';
 import { MapService } from '../services/map.service';
 import { IndicatorsService } from '../services/indicators.service';
 

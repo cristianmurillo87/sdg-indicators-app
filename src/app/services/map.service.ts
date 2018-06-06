@@ -48,17 +48,45 @@ export class MapService {
                     source: new XYZ({
                         url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                     })
-                }),
-                this.countriesLayer
+                })
             ],
             view: new View({
                 center: [0, 0],
-                zoom: 2,
-                minZoom: 2
+                zoom: 1.3,
+                minZoom: 1
             })
         });
 
+        let countriesBackground = new Vector({
+            source : new VectorSource({
+                format: new GeoJSON()
+            }),
+            style : new Style({
+                fill : new Fill({
+                    color : [189,189,189, .5]
+                }),
+                stroke : new Stroke({
+                    color : [99,99,99, .8],
+                    width : 0.4
+                })
+            })
+        });
+
+        this.map.addLayer(countriesBackground);
+
+        this._indicatorService.getCountries()
+            .subscribe((data) => {
+                const source = countriesBackground.getSource();
+                source.addFeatures((new GeoJSON()).readFeatures(data));
+                source.refresh();
+            });
+
+
+        this.map.addLayer(this.countriesLayer);
+
+
     }
+
 
     getFeatures(series, year, age, gender) {
 
@@ -82,7 +110,7 @@ export class MapService {
                         let testValue = feature.get('_value') / max;
 
                         let defaultStroke = new Stroke({
-                            color: [158, 154, 200, .8],
+                            color: [158, 154, 200],
                             width: 0.4
                         });
 
@@ -91,7 +119,7 @@ export class MapService {
                                 new Style({
                                     stroke: defaultStroke,
                                     fill: new Fill({
-                                        color: [153, 216, 201, .8]
+                                        color: [153, 216, 201]
                                     })
                                 })
                             ]
@@ -100,7 +128,7 @@ export class MapService {
                                 new Style({
                                     stroke: defaultStroke,
                                     fill: new Fill({
-                                        color: [102, 194, 164, .8]
+                                        color: [102, 194, 164]
                                     })
                                 })
                             ]
@@ -109,7 +137,7 @@ export class MapService {
                                 new Style({
                                     stroke: defaultStroke,
                                     fill: new Fill({
-                                        color: [65, 174, 118, .8]
+                                        color: [65, 174, 118]
                                     })
                                 })
                             ]
@@ -118,7 +146,7 @@ export class MapService {
                                 new Style({
                                     stroke: defaultStroke,
                                     fill: new Fill({
-                                        color: [35, 139, 69, .8]
+                                        color: [35, 139, 69]
                                     })
                                 })
                             ]
@@ -127,7 +155,7 @@ export class MapService {
                                 new Style({
                                     stroke: defaultStroke,
                                     fill: new Fill({
-                                        color: [0, 88, 36, .8]
+                                        color: [0, 88, 36]
                                     })
                                 })
                             ]

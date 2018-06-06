@@ -15,6 +15,9 @@ export class PlotComponent implements OnInit {
     _chart : Chart;
     _labels = [];
     _data = [];
+    title = 'Statitistical Plot';
+    chartOptions : any;
+    plotType = 'bar';
 
   constructor(private _indicatorsService : IndicatorsService) {
       this._indicatorsService.statistics$
@@ -30,8 +33,8 @@ export class PlotComponent implements OnInit {
 
   ngOnInit() {
 
-      this._chart = new Chart('chart-area', {
-          type: 'bar',
+      this.chartOptions = {
+          type: this.plotType,
           data: {
               labels: this._labels,
               datasets: [{
@@ -51,13 +54,32 @@ export class PlotComponent implements OnInit {
                   }]
               }
           }
-      });
+      };
+
+
+      this._chart = new Chart('chart-area', this.chartOptions);
   }
 
   updateChart() {
+      this.title = 'Statistical Plot - ' + this._indicatorsService._countryName;
       this._chart.data.datasets[0].data = this._data;
       this._chart.data.labels = this._labels;
       this._chart.update();
+  }
+
+  typeSelected() {
+      this._chart.destroy();
+      
+      if(this.plotType == "line-empty") {
+          this.chartOptions.type = 'line';
+          this.chartOptions.data.datasets[0].backgroundColor = 'rgba(255, 255, 255, .1)';
+          this.chartOptions.data.datasets[0].pointBackgroundColor = 'rgba(102, 194, 164, .8)';
+      } else {
+          this.chartOptions.type = this.plotType;
+          this.chartOptions.data.datasets[0].backgroundColor = 'rgba(102, 194, 164, .8)';
+      }
+
+      this._chart = new Chart('chart-area', this.chartOptions);
   }
 
 
