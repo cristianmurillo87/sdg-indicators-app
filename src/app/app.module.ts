@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { GoalsComponent } from './goals/goals.component';
 import { MapComponent } from './map/map.component';
 import { DataSelectionComponent } from './data-selection/data-selection.component';
 import { PlotComponent } from './plot/plot.component';
@@ -18,7 +17,6 @@ import { MapService } from "./services/map.service";
   declarations: [
     AppComponent,
     HeaderComponent,
-    GoalsComponent,
     MapComponent,
     DataSelectionComponent,
     PlotComponent
